@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Sample APP</title>
+</head>
+<!-- Simple App Which Search MongoDB database Collections-->
+<body>
+    <h1>Search Database</h1>
+        <input type="text" id="search" placeholder="Search">
+        <button id="submit">Search</button>
+    <pre>
+        <code>
+            <div id="result"></div>
+        </code>
+    </pre>
+
+    <script>
+        const search = document.getElementById('search');
+        const submit = document.getElementById('submit');
+        const result = document.getElementById('result');
+
+         submit.addEventListener('click', async () => {
+            result.innerText = 'Loading...';
+            const res = await fetch(
+                '/get?search=' + encodeURIComponent(search.value)
+            );
+
+            const data = await res.json();
+            result.innerText = "\n" + JSON.stringify(data, null, 2);
+         })
+    </script>
+</body>
+</html>
